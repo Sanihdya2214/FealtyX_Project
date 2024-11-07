@@ -40,13 +40,11 @@ class OllamaLLM(LLM):
             # Initialize a variable to store the full response text
             full_response = ""
             
-            # Iterate through each line in the streaming response
+         
             for line in response.iter_lines():
                 if line:
                     try:
-                        # Parse each line as a JSON object
                         result = json.loads(line)
-                        # Concatenate the 'response' text to form the full response
                         full_response += result.get("response", "")
                     except json.JSONDecodeError as e:
                         print("JSON parsing error for line:", line)
@@ -60,7 +58,7 @@ class OllamaLLM(LLM):
             print(f"Error calling Ollama API: {e}")
             return "Error generating response from Ollama."
 
-# Updated prompt template with clear indication for testing
+
 prompt_template = PromptTemplate(
     input_variables=["name", "age", "email"],
     template=(
@@ -70,7 +68,7 @@ prompt_template = PromptTemplate(
     )
 )
 
-# Initialize the LLMChain with the updated prompt template
+
 ollama_llm = OllamaLLM(model="llama3.2:1b")
 llm_chain = LLMChain(llm=ollama_llm, prompt=prompt_template)
 
